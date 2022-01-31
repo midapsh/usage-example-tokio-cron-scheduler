@@ -1,10 +1,13 @@
 mod processes;
+mod schedulers;
 mod services;
 
-use processes::debank_process::debank_process;
+use schedulers::main_scheduler::create_main_scheduler;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    debank_process().await?;
+    let main_scheduler = create_main_scheduler();
+
+    main_scheduler.start().await?;
     Ok(())
 }
